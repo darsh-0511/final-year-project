@@ -1,7 +1,6 @@
 from flask import Flask, jsonify
 from rabbitmq_queues import create_queues
 
-# Initialize Flask app
 app = Flask(__name__)
 
 @app.route('/create_queues/<int:user_id>', methods=['POST'])
