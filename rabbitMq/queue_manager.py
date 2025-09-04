@@ -1,19 +1,4 @@
-import pika
-
-RABBITMQ_HOST = 'localhost'  
-RABBITMQ_PORT = 5672         
-RABBITMQ_USER = 'guest'      
-RABBITMQ_PASS = 'guest'      
-
-def create_connection():
-    """Establish a connection to RabbitMQ server."""
-    credentials = pika.PlainCredentials(RABBITMQ_USER, RABBITMQ_PASS)
-    parameters = pika.ConnectionParameters(
-        host=RABBITMQ_HOST,
-        port=RABBITMQ_PORT,
-        credentials=credentials
-    )
-    return pika.BlockingConnection(parameters)
+from connection import create_connection
 
 def create_queues(user_id):
     """Create dynamic queues for a given user_id."""
