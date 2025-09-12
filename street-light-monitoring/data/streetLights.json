@@ -1,0 +1,6 @@
+[
+    { "id": 1, "lat": 51.505, "lng": -0.09, "status": "working" },
+    { "id": 2, "lat": 51.507, "lng": -0.085, "status": "not working" },
+    { "id": 3, "lat": 51.503, "lng": -0.095, "status": "working" },
+    { "id": 4, "lat": 51.506, "lng": -0.088, "status": "not working" }
+]
