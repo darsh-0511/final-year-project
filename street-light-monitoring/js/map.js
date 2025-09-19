@@ -4,8 +4,6 @@ if (typeof L === 'undefined') {
     // Initialize the map with Bengaluru, Karnataka, India
     const map = L.map('map').setView([12.9716, 77.5946], 13); // Center on Bengaluru
 
-    //const map = L.map('map');
-
     // Add OpenStreetMap tiles
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -37,13 +35,11 @@ if (typeof L === 'undefined') {
     // Function to fetch street light data from server
     async function fetchStreetLightData() {
         try {
-            // Replace with your actual server endpoint
-            const response = await fetch('https://api.example.com/streetlights', {
+            // Fetch from Flask server
+            const response = await fetch('http://localhost:5000/streetlights', {
                 method: 'GET',
                 headers: {
-                    'Content-Type': 'application/json',
-                    // Add any necessary authentication headers, e.g., API key
-                    // 'Authorization': 'Bearer YOUR_API_KEY'
+                    'Content-Type': 'application/json'
                 }
             });
 
