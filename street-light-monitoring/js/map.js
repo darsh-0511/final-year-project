@@ -1,9 +1,10 @@
-// Check if Leaflet is loaded
 if (typeof L === 'undefined') {
     console.error('Leaflet library is not loaded. Ensure the Leaflet script is included before map.js.');
 } else {
-    // Initialize the map
-    const map = L.map('map').setView([51.505, -0.09], 13); // Center on London for demo
+    // Initialize the map with Bengaluru, Karnataka, India
+    const map = L.map('map').setView([12.9716, 77.5946], 13); // Center on Bengaluru
+
+    //const map = L.map('map');
 
     // Add OpenStreetMap tiles
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -23,14 +24,6 @@ if (typeof L === 'undefined') {
         iconSize: [10, 10]
     });
 
-    // Fallback data in case fetch fails
-    const fallbackData = [
-        { id: 1, lat: 51.505, lng: -0.09, status: 'working' },
-        { id: 2, lat: 51.507, lng: -0.085, status: 'not working' },
-        { id: 3, lat: 51.503, lng: -0.095, status: 'working' },
-        { id: 4, lat: 51.506, lng: -0.088, status: 'not working' }
-    ];
-
     // Function to add markers
     function addMarkers(streetLights) {
         streetLights.forEach(light => {
@@ -41,21 +34,38 @@ if (typeof L === 'undefined') {
         });
     }
 
-    // Fetch street light data
-    fetch('data/streetLights.json')
-        .then(response => {
+    // Function to fetch street light data from server
+    async function fetchStreetLightData() {
+        try {
+            // Replace with your actual server endpoint
+            const response = await fetch('https://api.example.com/streetlights', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // Add any necessary authentication headers, e.g., API key
+                    // 'Authorization': 'Bearer YOUR_API_KEY'
+                }
+            });
+
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
-            return response.json();
-        })
-        .then(streetLights => {
-            console.log('Street Lights Data:', streetLights); // Debug log
+
+            const streetLights = await response.json();
+            console.log('Street Lights Data:', streetLights);
+
+            // Validate data format
+            if (!Array.isArray(streetLights) || !streetLights.every(light => 
+                'id' in light && 'lat' in light && 'lng' in light && 'status' in light)) {
+                throw new Error('Invalid data format received from server');
+            }
+
             addMarkers(streetLights);
-        })
-        .catch(error => {
-            console.error('Error loading street light data:', error);
-            console.warn('Using fallback data due to fetch failure.');
-            addMarkers(fallbackData); // Use fallback data if fetch fails
-        });
+        } catch (error) {
+            console.error('Fetch failed');
+        }
+    }
+
+    // Call the fetch function to load data
+    fetchStreetLightData();
 }
