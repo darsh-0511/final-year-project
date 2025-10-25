@@ -1,15 +1,20 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
 import mysql.connector
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
 
-# MySQL Connection Config
+# MySQL Connection Config (password from .env)
 db_config = {
     'host': 'localhost',
-    'user': 'root',          # Change if your MySQL user is different
-    'password': 'dnd12345#',          # Put your MySQL password here
+    'user': 'root',
+    'password': os.getenv('DB_PASSWORD'),  # ← From .env
     'database': 'streetlights_db'
 }
 
