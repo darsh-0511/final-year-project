@@ -1,12 +1,12 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    padding: 20px;           /* ← ADD THIS LINE */
-    box-sizing: border-box;  /* ← ADD THIS LINE */
+    padding: 60px 25px 20px 25px;   /* ↑ top 60px | ←→ left/right 25px ↓ bottom 20px */
+    box-sizing: border-box;
 }
 
 #map {
-    height: calc(100vh - 40px);  /* ← Adjust height to fit padding */
+    height: calc(100vh - 80px);     /* 60px top + 20px bottom */
     width: 100%;
     border: 1px solid #ccc;
 }
@@ -25,16 +25,30 @@ body {
     margin: 20px;
 }
 
-.legend div {
-    margin-bottom: 10px;
+.legend div { 
+    margin-bottom: 10px; 
 }
 
-.legend .working {
-    color: green;
-    font-weight: bold;
+.legend .working::before {
+    content: "●"; 
+    color: green; 
+    font-weight: bold; 
+    margin-right: 5px;
 }
 
-.legend .not-working {
-    color: red;
-    font-weight: bold;
+.legend .not-working::before {
+    content: "●"; 
+    color: red; 
+    font-weight: bold; 
+    margin-right: 5px;
+}
+
+.legend .working { 
+    color: green; 
+    font-weight: bold; 
+}
+
+.legend .not-working { 
+    color: red; 
+    font-weight: bold; 
 }
