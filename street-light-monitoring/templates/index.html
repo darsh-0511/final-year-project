@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Street Light Monitoring</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+    <style>
+        .top-header { 
+            position: absolute; top: 12px; left: 28px; right: 28px; 
+            display: flex; justify-content: space-between; align-items: center; 
+            z-index: 1000; pointer-events: none; font-family: 'Segoe UI', sans-serif; 
+        }
+        .app-name { 
+            background: linear-gradient(135deg, #FFC107, #FFB300); 
+            color: #1A237E; font-weight: 700; font-size: 17px; 
+            padding: 9px 18px; border-radius: 10px; 
+            box-shadow: 0 4px 12px rgba(255,193,7,0.4); 
+            pointer-events: auto; border: 1px solid #FFB300; 
+            transition: all 0.3s ease; 
+        }
+        .app-name:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 16px rgba(255,193,7,0.5); 
+        }
+        .top-buttons { 
+            display: flex; gap: 16px; pointer-events: auto; 
+        }
+        .top-btn { 
+            padding: 9px 22px; border: none; border-radius: 10px; 
+            font-weight: 600; font-size: 14px; color: white; 
+            cursor: pointer; min-width: 100px; text-align: center; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
+            transition: all 0.3s ease; position: relative; overflow: hidden; 
+        }
+        .top-btn::before { 
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; 
+            background: rgba(255,255,255,0.15); opacity: 0; transition: opacity 0.3s; 
+        }
+        .top-btn:hover::before { opacity: 1; }
+        .top-btn:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 14px rgba(0,0,0,0.3); 
+        }
+        .btn-weather { background: linear-gradient(135deg, #E91E63, #C2185B); }
+        .btn-graph   { background: linear-gradient(135deg, #4CAF50, #388E3C); }
+    </style>
+</head>
+<body>
+    <div class="top-header">
+        <div class="app-name">GridLumen</div>
+        <div class="top-buttons">
+            <!-- Weather Button – UI Only (No Action) -->
+            <button class="top-btn btn-weather" onclick="alert('Weather feature coming soon!')">
+                Weather
+            </button>
+            <button class="top-btn btn-graph" onclick="window.location.href='/graph'">
+                Graph
+            </button>
+        </div>
+    </div>
+
+    <div id="map"></div>
+    <div class="legend">
+        <div class="working">Working</div>
+        <div class="not-working">Not Working</div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="{{ url_for('static', filename='js/map.js') }}"></script>
+</body>
+</html>

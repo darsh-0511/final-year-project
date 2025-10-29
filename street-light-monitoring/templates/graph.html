@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph - GridLumen</title>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+    <style>
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: #f5f7fa; padding: 60px 25px 20px 25px; box-sizing: border-box; }
+        .container { max-width: 800px; margin: 0 auto; background: white; border-radius: 12px; padding: 30px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #1A237E; margin-bottom: 20px; }
+        .stats { display: flex; justify-content: space-around; margin: 20px 0; flex-wrap: wrap; }
+        .stat-card { text-align: center; padding: 15px; background: #f8f9fa; border-radius: 10px; min-width: 120px; }
+        .stat-value { font-size: 24px; font-weight: bold; }
+        .working { color: #4CAF50; }
+        .not-working { color: #E91E63; }
+        .total { color: #1976D2; }
+        .back-btn { display: block; margin: 20px auto; padding: 10px 20px; background: #FFC107; color: #1A237E; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        .back-btn:hover { background: #FFB300; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Analytics Dashboard</h1>
+        <div class="stats">
+            <div class="stat-card"><div class="stat-value working">{{ working }}</div><div>Working</div></div>
+            <div class="stat-card"><div class="stat-value not-working">{{ not_working }}</div><div>Not Working</div></div>
+            <div class="stat-card"><div class="stat-value total">{{ total }}</div><div>Total</div></div>
+        </div>
+        <div id="pie-chart"></div>
+        <button class="back-btn" onclick="window.location.href='/'">Back to Map</button>
+    </div>
+
+    <!-- FINAL FIX: Use data attribute + JSON.parse -->
+    <script type="text/javascript">
+        const graphData = JSON.parse(document.getElementById('graph-data').textContent);
+        Plotly.newPlot('pie-chart', graphData.data, graphData.layout, { responsive: true });
+    </script>
+
+    <!-- Hidden script tag with raw JSON -->
+    <script type="application/json" id="graph-data">
+        {{ graph_json | tojson }}
+    </script>
+</body>
+</html>
